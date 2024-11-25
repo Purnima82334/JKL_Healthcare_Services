@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Appointment>
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<div class="container">
+    <h2>Appointments</h2>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Schedule New Appointment</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Caregiver</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.Patient.Name</td>
+                    <td>@appointment.Caregiver.Name</td>
+                    <td>@appointment.AppointmentDate.ToString("g")</td>
+                    <td>
+                        <span class="badge bg-@(appointment.Status == "Scheduled" ? "primary" :
+                                              appointment.Status == "Completed" ? "success" :
+                                              appointment.Status == "Cancelled" ? "danger" : "warning")">
+                            @appointment.Status
+                        </span>
+                    </td>
+                    <td>
+                        @if (appointment.Status == "Scheduled")
+                        {
+                            <div class="btn-group">
+                                <form asp-action="UpdateStatus" method="post" style="display: inline;">
+                                    <input type="hidden" name="id" value="@appointment.AppointmentId" />
+                                    <input type="hidden" name="status" value="Completed" />
+                                    <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                                </form>
+                                <form asp-action="UpdateStatus" method="post" style="display: inline;">
+                                    <input type="hidden" name="id" value="@appointment.AppointmentId" />
+                                    <input type="hidden" name="status" value="Cancelled" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                </form>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

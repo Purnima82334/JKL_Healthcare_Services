@@ -1,0 +1,58 @@
+/* wwwroot/css/site.css */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #f8f9fa;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.navbar {
+    background-color: #fff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+    border: none;
+    margin-bottom: 1rem;
+}
+
+.table {
+    background-color: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+}
+
+.btn {
+    border-radius: 0.25rem;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.badge {
+    padding: 0.5em 0.75em;
+}

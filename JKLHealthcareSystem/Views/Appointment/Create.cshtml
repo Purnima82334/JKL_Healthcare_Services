@@ -1,0 +1,35 @@
+﻿@model Appointment
+@{
+    ViewData["Title"] = "Schedule Appointment";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2>Schedule New Appointment</h2>
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="PatientId">Patient</label>
+                <select asp-for="PatientId" class="form-control" asp-items="@(new SelectList(ViewBag.Patients, "PatientId", "Name"))">
+                    <option value="">Select Patient</option>
+                </select>
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="CaregiverId">Caregiver</label>
+                <select asp-for="CaregiverId" class="form-control" asp-items="@(new SelectList(ViewBag.Caregivers, "CaregiverId", "Name"))">
+                    <option value="">Select Caregiver</option>
+                </select>
+                <span asp-validation-for="CaregiverId" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="AppointmentDate">Appointment Date</label>
+                <input asp-for="AppointmentDate" type="datetime-local" class="form-control" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Schedule</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

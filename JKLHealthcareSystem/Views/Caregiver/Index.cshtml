@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Caregiver>
+@{
+    ViewData["Title"] = "Caregivers";
+}
+
+<div class="container">
+    <h2>Caregivers</h2>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Add New Caregiver</a>
+        </p>
+    }
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Availability</th>
+                <th>Current Assignments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var caregiver in Model)
+            {
+                <tr>
+                    <td>@caregiver.Name</td>
+                    <td>
+                        <span class="badge @(caregiver.Availability ? "bg-success" : "bg-danger")">
+                            @(caregiver.Availability ? "Available" : "Unavailable")
+                        </span>
+                    </td>
+                    <td>@caregiver.Appointments?.Count(a => a.Status == "Scheduled")</td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <form asp-action="ToggleAvailability" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@caregiver.CaregiverId" />
+                                <button type="submit" class="btn btn-sm @(caregiver.Availability ? "btn-warning" : "btn-success")">
+                                    @(caregiver.Availability ? "Set Unavailable" : "Set Available")
+                                </button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
